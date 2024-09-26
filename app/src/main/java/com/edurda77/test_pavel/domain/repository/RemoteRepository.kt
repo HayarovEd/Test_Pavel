@@ -8,7 +8,7 @@ import com.edurda77.test_pavel.domain.utils.ResultWork
 interface RemoteRepository {
     suspend fun getGeoByName(
         query: String,
-        limit: Int
+        limit: Int = 5
     ): ResultWork<List<WeatherProvince>, DataError.Network>
 
     suspend fun getForecast(

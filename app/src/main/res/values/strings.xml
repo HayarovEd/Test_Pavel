@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Test_Pavel</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="unknown_error">Незивестная ошибка</string>
+    <string name="not_unique_id">Неверный запрос</string>
+    <string name="search">Введите название города</string>
+    <string name="nothing_search">Ни чего не найдено</string>
+    <string name="temp">Температура</string>
+    <string name="humidity">Влажность</string>
+    <string name="pressure">Давление</string>
 </resources>
