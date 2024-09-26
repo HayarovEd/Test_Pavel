@@ -10,6 +10,7 @@ import com.edurda77.test_pavel.domain.repository.RemoteRepository
 import com.edurda77.test_pavel.domain.utils.APPID
 import com.edurda77.test_pavel.domain.utils.BASE_URL
 import com.edurda77.test_pavel.domain.utils.DataError
+import com.edurda77.test_pavel.domain.utils.FORECAST_POSTFIX
 import com.edurda77.test_pavel.domain.utils.GEO_POSTFIX
 import com.edurda77.test_pavel.domain.utils.LANG
 import com.edurda77.test_pavel.domain.utils.LATITUDE
@@ -89,7 +90,7 @@ class RemoteRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO)
         {
             try {
-                val weather = httpClient.get(BASE_URL + WEATHER_POSTFIX) {
+                val weather = httpClient.get(BASE_URL + FORECAST_POSTFIX) {
                     contentType(ContentType.Application.Json)
                     url {
                         parameter(LATITUDE, latitude)

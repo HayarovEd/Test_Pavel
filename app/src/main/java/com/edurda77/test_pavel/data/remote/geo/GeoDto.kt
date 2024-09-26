@@ -10,8 +10,6 @@ data class GeoDto(
     val country: String,
     @SerialName("lat")
     val lat: Double,
-    @SerialName("local_names")
-    val localNames: LocalNames,
     @SerialName("lon")
     val lon: Double,
     @SerialName("name")

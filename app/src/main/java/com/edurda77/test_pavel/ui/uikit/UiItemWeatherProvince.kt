@@ -1,5 +1,6 @@
 package com.edurda77.test_pavel.ui.uikit
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -50,6 +51,7 @@ fun UiItemWeatherProvince(
                 modifier = modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Log.d("TEST IMAGE", "url ${city.precipitation.icon}")
                 AsyncImage(
                     modifier = modifier.fillMaxWidth(),
                     model = city.precipitation.icon,
@@ -79,12 +81,12 @@ fun UiItemWeatherProvince(
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.pressure)} ${city.temp}",
+                    text = "${stringResource(R.string.pressure)} ${city.pressure}",
                 )
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.humidity)} ${city.temp}%"
+                    text = "${stringResource(R.string.humidity)} ${city.humidity}%"
                 )
             }
         }

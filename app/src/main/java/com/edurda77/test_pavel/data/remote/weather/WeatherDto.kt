@@ -22,8 +22,6 @@ data class WeatherDto(
     val main: Main,
     @SerialName("name")
     val name: String,
-    @SerialName("rain")
-    val rain: Rain,
     @SerialName("sys")
     val sys: Sys,
     @SerialName("timezone")
@@ -32,6 +30,4 @@ data class WeatherDto(
     val visibility: Int,
     @SerialName("weather")
     val weather: List<Weather>,
-    @SerialName("wind")
-    val wind: Wind
 )
