@@ -51,7 +51,6 @@ fun UiItemWeatherProvince(
                 modifier = modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Log.d("TEST IMAGE", "url ${city.precipitation.icon}")
                 AsyncImage(
                     modifier = modifier.fillMaxWidth(),
                     model = city.precipitation.icon,
@@ -76,12 +75,12 @@ fun UiItemWeatherProvince(
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.temp)} ${city.temp}",
+                    text = "${stringResource(R.string.temp)} ${city.temp}${stringResource(R.string.temp_unit)}",
                 )
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.pressure)} ${city.pressure}",
+                    text = "${stringResource(R.string.pressure)} ${city.pressure} ${stringResource(R.string.pressure_unit)}",
                 )
                 Spacer(modifier = modifier.height(5.dp))
                 Text(

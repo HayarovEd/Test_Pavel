@@ -12,3 +12,8 @@ fun convertLongToTime (time: Long): String {
     val formatter = DateTimeFormatter.ofPattern(SAMPLE_DATE)
     return formatter.format(date)
 }
+
+fun convertHectopascalToMillimetersOfMercury(hectopascal: Int): Int {
+    val conversionFactor = 0.7500617528128
+    return (hectopascal * conversionFactor).toInt()
+}

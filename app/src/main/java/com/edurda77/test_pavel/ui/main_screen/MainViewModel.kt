@@ -24,18 +24,25 @@ class MainViewModel @Inject constructor(
     fun onEvent(event: MainEvent) {
         when (event) {
             is MainEvent.OnSearch -> {
+                search()
+            }
+
+            is MainEvent.SetQuory -> {
                 _state.value.copy(
-                    isLoading = true,
+                    query = event.query,
                 )
                     .updateState()
-                search(event.query)
             }
         }
     }
 
-    private fun search(query: String) {
+    private fun search() {
+        _state.value.copy(
+            isLoading = true,
+        )
+            .updateState()
         viewModelScope.launch {
-            when (val result = remoteRepository.getGeoByName(query)) {
+            when (val result = remoteRepository.getGeoByName(state.value.query)) {
                 is ResultWork.Error -> {
                     _state.value.copy(
                         isLoading = false,

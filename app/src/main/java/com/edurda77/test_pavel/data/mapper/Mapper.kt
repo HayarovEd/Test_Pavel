@@ -9,6 +9,7 @@ import com.edurda77.test_pavel.domain.model.WeatherProvince
 import com.edurda77.test_pavel.domain.utils.BASE_IMAGE_URL
 import com.edurda77.test_pavel.domain.utils.ICON_POSTFIX
 import com.edurda77.test_pavel.domain.utils.ICON_PREFIX
+import com.edurda77.test_pavel.domain.utils.convertHectopascalToMillimetersOfMercury
 import com.edurda77.test_pavel.domain.utils.convertLongToTime
 
 
@@ -23,7 +24,7 @@ fun WeatherDto.convertToWeatherOfProvincie(): WeatherProvince {
             icon = "$BASE_IMAGE_URL$ICON_PREFIX${this.weather.first().icon}$ICON_POSTFIX",
             main = this.weather.first().main
         ),
-        pressure = this.main.pressure,
+        pressure = convertHectopascalToMillimetersOfMercury(this.main.pressure),
         temp = this.main.temp
     )
 
@@ -36,7 +37,7 @@ fun List<ForecastDto>.convertToWeatherOfProvincie(): List<Forecast> {
             itemsWeather = forecastDto.list.map {
                 ItemWeather(
                     time = convertLongToTime(it.dt.toLong()),
-                    pressure = it.main.pressure,
+                    pressure = convertHectopascalToMillimetersOfMercury(it.main.pressure),
                     description = it.weather.first().description,
                     humidity = it.main.humidity,
                     icon = "$BASE_IMAGE_URL$ICON_PREFIX${it.weather.first().icon}$ICON_POSTFIX",

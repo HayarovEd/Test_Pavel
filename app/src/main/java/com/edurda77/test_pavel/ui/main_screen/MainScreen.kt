@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -23,14 +25,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -45,11 +47,10 @@ import com.edurda77.test_pavel.ui.uikit.UiItemWeatherProvince
 fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    //configuration: Configuration
+    configuration: Configuration = LocalConfiguration.current
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val onEvent = viewModel::onEvent
-    val query = remember { mutableStateOf("") }
 
     val snakeBarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
@@ -76,9 +77,9 @@ fun MainScreen(
             ) {
                 OutlinedTextField(
                     modifier = modifier.weight(1f),
-                    value = query.value,
+                    value = state.value.query,
                     onValueChange = {
-                        query.value= it
+                        onEvent(MainEvent.SetQuory(it))
                     },
                     placeholder= {
                         Text(text = stringResource(R.string.search))
@@ -86,9 +87,9 @@ fun MainScreen(
                 )
                 IconButton(
                     modifier = modifier,
-                    enabled = query.value.isNotBlank(),
+                    enabled = state.value.query.isNotBlank(),
                     onClick = {
-                        onEvent(MainEvent.OnSearch(query.value))
+                        onEvent(MainEvent.OnSearch)
                     }
                 ) {
                     Icon(
@@ -104,8 +105,8 @@ fun MainScreen(
                 .padding(paddings),
             isRefreshing = state.value.isLoading,
             onRefresh = {
-                if (query.value.isNotBlank()) {
-                    onEvent(MainEvent.OnSearch(query.value))
+                if (state.value.query.isNotBlank()) {
+                    onEvent(MainEvent.OnSearch)
                 }},
             indicator = {
                 if (state.value.isLoading) {
@@ -120,19 +121,49 @@ fun MainScreen(
             }
         ) {
             if (state.value.cities.isNotEmpty()) {
-                LazyColumn (
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(15.dp),
-                    contentPadding = PaddingValues(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 55.dp)
-                ) {
-                    items(state.value.cities) { city->
-                        UiItemWeatherProvince(
-                            city = city,
-                            onClick = {
+                if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    LazyVerticalGrid(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(15.dp),
+                        horizontalArrangement = Arrangement.spacedBy(15.dp),
+                        contentPadding = PaddingValues(
+                            start = 15.dp,
+                            end = 15.dp,
+                            top = 15.dp,
+                            bottom = 55.dp
+                        ),
+                        columns = GridCells.Fixed(2)
+                    ) {
+                        items(state.value.cities) { city ->
+                            UiItemWeatherProvince(
+                                city = city,
+                                onClick = {
 
-                            }
+                                }
+                            )
+                        }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(15.dp),
+                        contentPadding = PaddingValues(
+                            start = 15.dp,
+                            end = 15.dp,
+                            top = 15.dp,
+                            bottom = 55.dp
                         )
+                    ) {
+                        items(state.value.cities) { city ->
+                            UiItemWeatherProvince(
+                                city = city,
+                                onClick = {
+
+                                }
+                            )
+                        }
                     }
                 }
             } else {
@@ -141,11 +172,14 @@ fun MainScreen(
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        modifier = modifier
-                            .fillMaxWidth(),
-                        text = stringResource(R.string.nothing_search),
-                        textAlign = TextAlign.Center)
+                    if (!state.value.isLoading) {
+                        Text(
+                            modifier = modifier
+                                .fillMaxWidth(),
+                            text = stringResource(R.string.nothing_search),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }

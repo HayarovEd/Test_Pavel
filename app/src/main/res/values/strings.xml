@@ -8,4 +8,6 @@
     <string name="temp">Температура</string>
     <string name="humidity">Влажность</string>
     <string name="pressure">Давление</string>
+    <string name="pressure_unit">мм.рт.ст.</string>
+    <string name="temp_unit">°C</string>
 </resources>
