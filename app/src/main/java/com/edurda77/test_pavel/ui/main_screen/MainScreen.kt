@@ -32,7 +32,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edurda77.test_pavel.R
+import com.edurda77.test_pavel.ui.navigation.NavigationRoute
 import com.edurda77.test_pavel.ui.uikit.UiItemWeatherProvince
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +47,8 @@ import com.edurda77.test_pavel.ui.uikit.UiItemWeatherProvince
 fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    configuration: Configuration = LocalConfiguration.current
+    configuration: Configuration,
+    onClick: (NavigationRoute.Forecast) -> Unit
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
     val onEvent = viewModel::onEvent
@@ -139,7 +140,12 @@ fun MainScreen(
                             UiItemWeatherProvince(
                                 city = city,
                                 onClick = {
-
+                                    onClick(
+                                        NavigationRoute.Forecast(
+                                            lat = city.lat.toString(),
+                                            lon = city.lon.toString()
+                                        )
+                                    )
                                 }
                             )
                         }
@@ -160,7 +166,12 @@ fun MainScreen(
                             UiItemWeatherProvince(
                                 city = city,
                                 onClick = {
-
+                                    onClick(
+                                        NavigationRoute.Forecast(
+                                            lat = city.lat.toString(),
+                                            lon = city.lon.toString()
+                                        )
+                                    )
                                 }
                             )
                         }
