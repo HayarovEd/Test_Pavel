@@ -13,7 +13,7 @@ import com.edurda77.test_pavel.domain.utils.convertHectopascalToMillimetersOfMer
 import com.edurda77.test_pavel.domain.utils.convertLongToTime
 
 
-fun WeatherDto.convertToWeatherOfProvincie(): WeatherProvince {
+fun WeatherDto.convertToWeatherOfProvince(): WeatherProvince {
     return WeatherProvince(
         lat = this.coord.lat,
         lon = this.coord.lon,
@@ -30,21 +30,20 @@ fun WeatherDto.convertToWeatherOfProvincie(): WeatherProvince {
 
 }
 
-fun List<ForecastDto>.convertToWeatherOfProvincie(): List<Forecast> {
-    return this.map { forecastDto->
-        Forecast(
-            name = forecastDto.city.name,
-            itemsWeather = forecastDto.list.map {
-                ItemWeather(
-                    time = convertLongToTime(it.dt.toLong()),
-                    pressure = convertHectopascalToMillimetersOfMercury(it.main.pressure),
-                    description = it.weather.first().description,
-                    humidity = it.main.humidity,
-                    icon = "$BASE_IMAGE_URL$ICON_PREFIX${it.weather.first().icon}$ICON_POSTFIX",
-                    temp = it.main.temp
-                )
-            }
-        )
-    }
+fun ForecastDto.convertToWeatherOfProvince(): Forecast {
+    return Forecast(
+        name = this.city.name,
+        itemsWeather = this.list.map {
+            ItemWeather(
+                time = convertLongToTime(it.dt.toLong()),
+                pressure = convertHectopascalToMillimetersOfMercury(it.main.pressure),
+                description = it.weather.first().description,
+                humidity = it.main.humidity,
+                icon = "$BASE_IMAGE_URL$ICON_PREFIX${it.weather.first().icon}$ICON_POSTFIX",
+                temp = it.main.temp,
+                windSpeed = it.wind.speed
+            )
+        }
+    )
 
 }

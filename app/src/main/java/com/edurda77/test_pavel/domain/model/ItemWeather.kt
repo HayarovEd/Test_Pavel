@@ -8,4 +8,5 @@ data class ItemWeather(
     val humidity: Int,
     val description: String,
     val icon: String,
+    val windSpeed: Double
 )

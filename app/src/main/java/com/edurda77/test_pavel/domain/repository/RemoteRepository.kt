@@ -14,5 +14,5 @@ interface RemoteRepository {
     suspend fun getForecast(
         latitude: Double,
         longitude: Double
-    ): ResultWork<List<Forecast>, DataError.Network>
+    ): ResultWork<Forecast, DataError.Network>
 }
