@@ -1,6 +1,6 @@
 package com.edurda77.test_pavel.ui.uikit
 
-import android.util.Log
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.edurda77.test_pavel.R
@@ -59,7 +60,11 @@ fun UiItemWeatherProvince(
                 )
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
-                    modifier = modifier,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .basicMarquee(),
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
                     text = city.precipitation.description,
                 )
             }
