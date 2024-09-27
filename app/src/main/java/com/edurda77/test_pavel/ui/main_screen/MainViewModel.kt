@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
                 search()
             }
 
-            is MainEvent.SetQuory -> {
+            is MainEvent.SetQuery -> {
                 _state.value.copy(
                     query = event.query,
                 )
@@ -39,6 +39,7 @@ class MainViewModel @Inject constructor(
     private fun search() {
         _state.value.copy(
             isLoading = true,
+            cities = emptyList()
         )
             .updateState()
         viewModelScope.launch {

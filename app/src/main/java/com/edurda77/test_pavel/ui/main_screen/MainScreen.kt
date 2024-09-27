@@ -80,7 +80,7 @@ fun MainScreen(
                     modifier = modifier.weight(1f),
                     value = state.value.query,
                     onValueChange = {
-                        onEvent(MainEvent.SetQuory(it))
+                        onEvent(MainEvent.SetQuery(it))
                     },
                     placeholder= {
                         Text(text = stringResource(R.string.search))

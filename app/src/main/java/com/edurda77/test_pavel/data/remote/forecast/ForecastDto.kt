@@ -13,7 +13,7 @@ data class ForecastDto(
     @SerialName("cod")
     val cod: String,
     @SerialName("list")
-    val list: List<Item0>,
+    val list: List<BaseDate>,
     @SerialName("message")
     val message: Int
 )

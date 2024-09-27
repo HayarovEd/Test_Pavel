@@ -1,5 +1,6 @@
 package com.edurda77.test_pavel.ui.uikit
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,16 +23,18 @@ import com.edurda77.test_pavel.domain.model.ItemWeather
 
 
 @Composable
-fun UiItemForecast(
+fun UiItemForecastLandscape(
     modifier: Modifier = Modifier,
     itemWeather: ItemWeather,
+    configuration: Configuration,
 ) {
-    Column (
+    val screenWidth = configuration.screenWidthDp.dp
+    Column(
         modifier = modifier
             .padding(10.dp)
-            .fillMaxWidth(),
+            .width(screenWidth / 3),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Text(
             modifier = modifier.fillMaxWidth(),
             text = itemWeather.time,
@@ -63,7 +66,7 @@ fun UiItemForecast(
             }
             Spacer(modifier = modifier.width(10.dp))
             Column(
-                modifier = modifier.weight(2f),
+                modifier = modifier.weight(1f),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -73,7 +76,11 @@ fun UiItemForecast(
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.pressure)} ${itemWeather.pressure} ${stringResource(R.string.pressure_unit)}",
+                    text = "${stringResource(R.string.pressure)} ${itemWeather.pressure} ${
+                        stringResource(
+                            R.string.pressure_unit
+                        )
+                    }",
                 )
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
@@ -83,7 +90,11 @@ fun UiItemForecast(
                 Spacer(modifier = modifier.height(5.dp))
                 Text(
                     modifier = modifier,
-                    text = "${stringResource(R.string.speed_wind)} ${itemWeather.humidity} ${stringResource(R.string.speed_wind_unit)}"
+                    text = "${stringResource(R.string.speed_wind)} ${itemWeather.humidity} ${
+                        stringResource(
+                            R.string.speed_wind_unit
+                        )
+                    }"
                 )
             }
         }

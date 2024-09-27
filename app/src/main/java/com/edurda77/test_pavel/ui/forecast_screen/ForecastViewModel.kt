@@ -58,7 +58,8 @@ class ForecastViewModel @Inject constructor(
 
     private suspend fun getForecast() {
         _state.value.copy(
-           isLoading = true
+           isLoading = true,
+            forecasts = null
         )
             .updateState()
         if (state.value.lat!=null&&state.value.lon!=null) {

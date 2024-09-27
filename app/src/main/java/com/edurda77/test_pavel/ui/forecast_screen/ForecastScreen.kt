@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.edurda77.test_pavel.R
 import com.edurda77.test_pavel.ui.uikit.UiItemForecast
+import com.edurda77.test_pavel.ui.uikit.UiItemForecastLandscape
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,6 +84,7 @@ fun ForecastScreen(
                         .align(Alignment.Center)
                         .fillMaxWidth(),
                     text = state.value.forecasts?.name?:"",
+                    textAlign = TextAlign.Center
                 )
             }
         },
@@ -109,9 +111,8 @@ fun ForecastScreen(
             if (!state.value.forecasts?.itemsWeather.isNullOrEmpty()) {
                 if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     LazyRow (
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(15.dp),
+                        modifier = modifier,
+                       // horizontalArrangement = Arrangement.spacedBy(15.dp),
                         contentPadding = PaddingValues(
                             start = 15.dp,
                             end = 15.dp,
@@ -120,7 +121,8 @@ fun ForecastScreen(
                         ),
                     ) {
                         items(state.value.forecasts?.itemsWeather?: emptyList()) { itemsWeather ->
-                            UiItemForecast(
+                            UiItemForecastLandscape(
+                                configuration = configuration,
                                 itemWeather = itemsWeather,
                             )
                         }

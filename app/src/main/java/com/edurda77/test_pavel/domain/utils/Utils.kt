@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 
 fun convertLongToTime (time: Long): String {
     val date = Instant
-        .ofEpochMilli(time)
+        .ofEpochMilli(time*1000)
         .atZone(ZoneId.systemDefault())
         .toLocalDateTime()
     val formatter = DateTimeFormatter.ofPattern(SAMPLE_DATE)

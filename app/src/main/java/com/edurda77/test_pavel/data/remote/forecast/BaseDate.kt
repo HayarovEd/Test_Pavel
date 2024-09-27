@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Item0(
+data class BaseDate(
     @SerialName("clouds")
     val clouds: Clouds,
     @SerialName("dt")
@@ -15,9 +15,7 @@ data class Item0(
     @SerialName("main")
     val main: Main,
     @SerialName("pop")
-    val pop: Double,
-    @SerialName("rain")
-    val rain: Rain?,
+    val pop: Int,
     @SerialName("sys")
     val sys: Sys,
     @SerialName("visibility")
