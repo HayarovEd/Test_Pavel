@@ -10,4 +10,6 @@
     <string name="pressure">Давление</string>
     <string name="pressure_unit">мм.рт.ст.</string>
     <string name="temp_unit">°C</string>
+    <string name="speed_wind">Скорость ветра</string>
+    <string name="speed_wind_unit">м/с</string>
 </resources>

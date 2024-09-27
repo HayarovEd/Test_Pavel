@@ -1,6 +1,6 @@
 package com.edurda77.test_pavel.data.repository
 
-import com.edurda77.test_pavel.data.mapper.convertToWeatherOfProvince
+import com.edurda77.test_pavel.data.mapper.convertToForecast
 import com.edurda77.test_pavel.data.remote.forecast.ForecastDto
 import com.edurda77.test_pavel.data.remote.geo.GeoDto
 import com.edurda77.test_pavel.data.remote.weather.WeatherDto
@@ -70,7 +70,7 @@ class RemoteRepositoryImpl @Inject constructor(
                     }
                         .call
                         .body<WeatherDto>()
-                    weatherOfProvincies.add(weather.convertToWeatherOfProvince())
+                    weatherOfProvincies.add(weather.convertToForecast())
                 }
                 ResultWork.Success(weatherOfProvincies)
             } catch (e: ClientRequestException) {
@@ -102,7 +102,7 @@ class RemoteRepositoryImpl @Inject constructor(
                 }
                     .call
                     .body<ForecastDto>()
-                ResultWork.Success(weather.convertToWeatherOfProvince())
+                ResultWork.Success(weather.convertToForecast())
             } catch (e: ClientRequestException) {
                 ResultWork.Error(DataError.Network.BAD_REQUEST)
             } catch (e: ServerResponseException) {

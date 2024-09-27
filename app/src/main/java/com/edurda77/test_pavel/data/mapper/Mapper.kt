@@ -13,7 +13,7 @@ import com.edurda77.test_pavel.domain.utils.convertHectopascalToMillimetersOfMer
 import com.edurda77.test_pavel.domain.utils.convertLongToTime
 
 
-fun WeatherDto.convertToWeatherOfProvince(): WeatherProvince {
+fun WeatherDto.convertToForecast(): WeatherProvince {
     return WeatherProvince(
         lat = this.coord.lat,
         lon = this.coord.lon,
@@ -30,7 +30,7 @@ fun WeatherDto.convertToWeatherOfProvince(): WeatherProvince {
 
 }
 
-fun ForecastDto.convertToWeatherOfProvince(): Forecast {
+fun ForecastDto.convertToForecast(): Forecast {
     return Forecast(
         name = this.city.name,
         itemsWeather = this.list.map {

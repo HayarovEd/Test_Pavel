@@ -32,7 +32,10 @@ fun NavController(
         }
         composable<NavigationRoute.Forecast> {
             ForecastScreen(
-                configuration = configuration
+                configuration = configuration,
+                onClickBack = {
+                    navController.navigateUp()
+                }
             )
         }
     }
