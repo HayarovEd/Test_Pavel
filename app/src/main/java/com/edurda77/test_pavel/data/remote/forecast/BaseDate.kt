@@ -14,8 +14,6 @@ data class BaseDate(
     val dtTxt: String,
     @SerialName("main")
     val main: Main,
-    @SerialName("sys")
-    val sys: Sys,
     @SerialName("visibility")
     val visibility: Int,
     @SerialName("weather")
